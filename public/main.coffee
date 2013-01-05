@@ -16,8 +16,8 @@ createSounds = ->
     register: (name,file)->
       sounds[name] = createSoundPlayer(file)
 
-    registerOggs: (names)->
-      @register(name,"#{name}.ogg") for name in names
+    registerMp3s: (names)->
+      @register(name,"#{name}.mp3") for name in names
 
     play: (name)->
       sounds[name].play()
@@ -33,15 +33,24 @@ createSounds = ->
 
 sounds = createSounds()
 # sounds.register('tarzan','tarzan.ogg')
-sounds.registerOggs(['quack','ribbit','moo'])
+sounds.registerMp3s(['quack','ribbit','moo'])
+
+doSomethingRandom = ->
+  body.style.backgroundColor = Colors.rand()
+
+  sounds.stopAll()
+  sounds.playRandom()
 
 body.addEventListener 'keyup', (e)->
   e.preventDefault()
   ascii = e.keyCode
   console.log("pressed #{ascii}")
-  
-  body.style.backgroundColor = Colors.rand()
 
-  sounds.stopAll()
-  sounds.playRandom()
+  doSomethingRandom()
+
+body.addEventListener 'click', (e)->
+  doSomethingRandom()
+
+body.addEventListener 'touchend', (e)->
+  doSomethingRandom()
   
