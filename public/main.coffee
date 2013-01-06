@@ -13,7 +13,7 @@ createSounds = ->
   sounds = {}
 
   createSoundPlayer = (file)->
-    AudioFX("sounds/#{file}", pool:10, volume: 1.0)
+    AudioFX("sounds/#{file}", pool:3, volume: 1.0)
 
   allSounds = -> _.values(sounds)
 
