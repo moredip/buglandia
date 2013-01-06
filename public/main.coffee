@@ -13,7 +13,7 @@ createSounds = ->
   sounds = {}
 
   createSoundPlayer = (file)->
-    AudioFX("sounds/#{file}", pool:10)
+    AudioFX("sounds/#{file}", pool:10, volume: 1.0)
 
   allSounds = -> _.values(sounds)
 
@@ -77,7 +77,7 @@ do setup = ->
     shapes.showByIndex(input)
 
   sounds = createSounds()
-  sounds.registerMp3s(['quack','ribbit','moo','bottle','flute','pops'])
+  sounds.registerMp3s(['quack','ribbit','moo','bottle','flute','pops','chickens','pissed-off-cat','woof','elephant','laugh','salad'])
 
   shapes = createShapes()
 
