@@ -5,6 +5,10 @@ chooseRandomElementFrom = (array)->
   index = Math.floor( Math.random() * array.length ) 
   array[index]
 
+chooseModulo = (array, i)->
+  index = i % array.length 
+  array[index]
+
 createSounds = ->
   sounds = {}
 
@@ -26,6 +30,9 @@ createSounds = ->
     playRandom: ->
       chooseRandomElementFrom( allSounds() ).play()
 
+    playByIndex: (i)->
+      chooseModulo(allSounds(), i ).play()
+
     stopAll: ->
       v.stop for k,v of sounds
   }
@@ -45,6 +52,9 @@ createShapes = ->
   {
     showRandom: ->
       showShape( chooseRandomElementFrom(shapeEls()) )
+
+    showByIndex: (i)->
+      showShape( chooseModulo( shapeEls(), i ) )
   }
 
 
@@ -58,8 +68,16 @@ do setup = ->
 
     shapes.showRandom()
 
+  doSomethingFromInputNumber = (input)->
+    body.style.backgroundColor = Colors.rand()
+
+    sounds.stopAll()
+    sounds.playByIndex(input)
+
+    shapes.showByIndex(input)
+
   sounds = createSounds()
-  sounds.registerMp3s(['quack','ribbit','moo'])
+  sounds.registerMp3s(['quack','ribbit','moo','bottle','flute','pops'])
 
   shapes = createShapes()
 
@@ -69,7 +87,7 @@ do setup = ->
     ascii = e.keyCode
     console.log("pressed #{ascii}")
 
-    doSomethingRandom()
+    doSomethingFromInputNumber(ascii)
 
   body.addEventListener 'click', (e)->
     doSomethingRandom()
