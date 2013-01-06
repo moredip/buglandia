@@ -1,6 +1,9 @@
 body = document.getElementsByTagName('body')[0]
 body.style.backgroundColor = 'hotpink'
 
+chooseRandomElementFrom = (array)->
+  index = Math.floor( Math.random() * array.length ) 
+  array[index]
 
 createSounds = ->
   sounds = {}
@@ -10,8 +13,6 @@ createSounds = ->
 
   allSounds = -> _.values(sounds)
 
-  numberOfSounds = -> _.size(sounds)
-  
   {
     register: (name,file)->
       sounds[name] = createSoundPlayer(file)
@@ -23,34 +24,56 @@ createSounds = ->
       sounds[name].play()
 
     playRandom: ->
-      index = Math.floor( Math.random() * numberOfSounds() ) 
-      sound = allSounds()[index]
-      sound.play()
+      chooseRandomElementFrom( allSounds() ).play()
 
     stopAll: ->
       v.stop for k,v of sounds
   }
 
-sounds = createSounds()
-# sounds.register('tarzan','tarzan.ogg')
-sounds.registerMp3s(['quack','ribbit','moo'])
 
-doSomethingRandom = ->
-  body.style.backgroundColor = Colors.rand()
+createShapes = ->
+  shapeEls = -> 
+    document.getElementsByClassName('shape')
 
-  sounds.stopAll()
-  sounds.playRandom()
+  hideAll = ->
+    shapeEl.classList.remove('show') for shapeEl in shapeEls()
 
-body.addEventListener 'keyup', (e)->
-  e.preventDefault()
-  ascii = e.keyCode
-  console.log("pressed #{ascii}")
+  showShape = (shapeEl)->
+    hideAll()
+    shapeEl.classList.add('show')
 
-  doSomethingRandom()
+  {
+    showRandom: ->
+      showShape( chooseRandomElementFrom(shapeEls()) )
+  }
 
-body.addEventListener 'click', (e)->
-  doSomethingRandom()
 
-body.addEventListener 'touchend', (e)->
-  doSomethingRandom()
-  
+
+do setup = ->
+  doSomethingRandom = ->
+    body.style.backgroundColor = Colors.rand()
+
+    sounds.stopAll()
+    sounds.playRandom()
+
+    shapes.showRandom()
+
+  sounds = createSounds()
+  sounds.registerMp3s(['quack','ribbit','moo'])
+
+  shapes = createShapes()
+
+
+  body.addEventListener 'keyup', (e)->
+    e.preventDefault()
+    ascii = e.keyCode
+    console.log("pressed #{ascii}")
+
+    doSomethingRandom()
+
+  body.addEventListener 'click', (e)->
+    doSomethingRandom()
+
+  body.addEventListener 'touchend', (e)->
+    doSomethingRandom()
+    

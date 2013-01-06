@@ -1,0 +1,23 @@
+.shape {
+  display: none;
+
+  text-align: center;
+  color: white;
+  font-size: 30em;
+  margin: 0px auto;
+  position: relative;
+  top: 50%;
+  margin-top: -0.5em;
+
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.shape.show {
+  display: block;
+}
