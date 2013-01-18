@@ -58,10 +58,25 @@ createShapes = ->
   }
 
 
+createColors = ->
+  changeHue = (hue)->
+    body.style.backgroundColor = 'hsla('+hue+', 50%, 45%, 1)'
+
+  {
+    showRandom: ->
+      changeHue( parseInt(Math.random()*360) )
+
+    showByIndex: (i)->
+      changeHue( parseInt( Math.sin(i) * 180) + 180 )
+
+    setTransition: (duration = '2s')->
+      body.style.webkitTransition = 'all '+duration
+  }
+
 
 do setup = ->
   doSomethingRandom = ->
-    body.style.backgroundColor = Colors.rand()
+    colors.showRandom()
 
     sounds.stopAll()
     sounds.playRandom()
@@ -69,7 +84,7 @@ do setup = ->
     shapes.showRandom()
 
   doSomethingFromInputNumber = (input)->
-    body.style.backgroundColor = Colors.rand()
+    colors.showByIndex(input)
 
     sounds.stopAll()
     sounds.playByIndex(input)
@@ -81,6 +96,8 @@ do setup = ->
 
   shapes = createShapes()
 
+  colors = createColors()
+  colors.setTransition('2s')
 
   body.addEventListener 'keyup', (e)->
     e.preventDefault()
