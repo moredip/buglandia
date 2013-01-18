@@ -60,7 +60,7 @@ createShapes = ->
 
 createColors = ->
   changeHue = (hue)->
-    body.style.backgroundColor = 'hsla('+hue+', 50%, 45%, 1)'
+    body.style.backgroundColor = "hsla(#{hue}, 50%, 45%, 1)"
 
   {
     showRandom: ->
@@ -70,7 +70,7 @@ createColors = ->
       changeHue( parseInt( Math.sin(i) * 180) + 180 )
 
     setTransition: (duration = '2s')->
-      body.style.webkitTransition = 'all '+duration
+      body.style.webkitTransition = "all #{duration}"
   }
 
 
